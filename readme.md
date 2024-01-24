@@ -2,6 +2,5 @@
 
 ## sudo apt install docker.io
 ## docker pull osrf/ros:noetic-desktop-full
-## sudo docker run -it ros:noetic-desktop-full
-## docker exec -it gallant_elbakyan bash
-## ./ros_entrypoint.sh
+## docker run -it --net=host     --env="DISPLAY"     --env="QT_X11_NO_MITSHM=1"     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw"     osrf/ros:noetic-desktop-full     bash -it -c "roslaunch gazebo_ros empty_world.launch"
+## xhost +
