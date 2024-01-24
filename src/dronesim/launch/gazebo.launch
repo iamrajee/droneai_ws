@@ -9,6 +9,7 @@
 	<!-- <node ns="/stereo_camera" pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" required="true" args="_approximate_sync:=True"/> -->
 	<!-- <node pkg="image_view" type="disparity_view" name="disparity_view" required="true" args="image:=/stereo_camera/disparity"/> -->
 
-    <node pkg="dronesim" name="move_in_gazebo" type="move_in_gazebo.py" output="screen" />
+    <node pkg="dronesim" name="spawn_drones" type="spawn_drones.py" output="screen" />
+	<node pkg="dronesim" name="move_in_gazebo" type="move_in_gazebo.py" output="screen" />
 
 </launch>

@@ -15,9 +15,8 @@ def quaternion_from_twist(modelstate):
     vx,vy = modelstate.twist.linear.x, modelstate.twist.linear.y
     theta = math.atan2(vy, vx)
     # Assuming roll and pitch are both 0
-    # roll = 0
-    # pitch = 0
-    print("angle:", math.degrees(theta))
+    # print("angle:", math.degrees(theta))
+    
     # Convert angles to radians
     roll_rad = 0#np.radians(roll)
     pitch_rad = 0#np.radians(pitch)
@@ -30,7 +29,7 @@ def quaternion_from_twist(modelstate):
     qz = np.sin(yaw_rad/2) #* np.sin(pitch_rad)
 
     # Return the quaternion
-    print("quat:", qw, qx, qy, qz)
+    # print("quat:", qw, qx, qy, qz)
     return np.array([qw, qx, qy, qz])
 
 def generate_circular_trajectory(radius, num_points):
@@ -43,14 +42,6 @@ def generate_circular_trajectory(radius, num_points):
     theta += 2 * math.pi / num_points  # Increment angle for next point
   return points
 
-def generate_zigzag_circular_trajectory(radius, num_points):
-    points = []
-    for i in range(num_points):
-        theta = 2 * math.pi * i / num_points
-        x = radius * math.cos(theta)
-        y = radius * math.sin(theta) * math.sin(2 * math.pi * i / 5)  # Sinusoidal zig-zag
-        points.append((x, y))
-    return points
 
 radius = 3
 num_points = 100  # Adjust for desired number of points
@@ -65,17 +56,10 @@ num_points = len(trajectory)
 
 drone_id = "0"
 
-pub = rospy.Publisher('/move_command', Pose, queue_size=1)  # Create publisher for move_cb
-
 drone_cords_offset = [[0.5,0.5,0.5],[0.5,-0.5,0.5],[-0.5,0.5,0.5],[-0.5,-0.5,0.5]]
 
 number_of_drones=4
 
-# Ring
-drone_id_of_interest=(int(drone_id)%number_of_drones) + 1
-
-# star
-# drone_id_of_interest= 1
 
 def update_position():
     
@@ -134,7 +118,7 @@ def update_position():
         print("Object cannot be moved")
         
     marker_model_state=model_state
-    marker_model_state.model_name = "marker_1"
+    marker_model_state.model_name = "marker"
     marker_model_state.pose.position.z = 2.5
     resp = set_state(marker_model_state)
     if not resp:
@@ -152,11 +136,6 @@ def update_position():
     resp = set_state(camera_model_state)
     if not resp:
         print("Object cannot be moved")
-        
-        
-
-
-    # pub_odom.publish(msg.pose.pose)  # Publish the pose
 
 
 def main():
@@ -165,7 +144,7 @@ def main():
 
     # pub_odom = rospy.Publisher('/drone_' + drone_id + '_visual_slam/odom', Odometry)
     while not rospy.is_shutdown():
-        print("--------------drone:", drone_id)
+        # print("--------------drone:", drone_id)
         update_position()
         rospy.sleep(0.2)
         

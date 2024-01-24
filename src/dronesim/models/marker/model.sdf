@@ -1,5 +1,5 @@
 <sdf version="1.5">
-  <model name="marker_1">
+  <model name="marker">
     <static>false</static>
     <link name="link">
       <pose>0.0 0.0 0.0005 0.0 0.0 0.0</pose>
@@ -15,7 +15,7 @@
         <material>
           <script>
             <name>marker_id_1</name>
-          <uri>model://marker_1/materials/scripts/</uri><uri>model://marker_1/materials/textures/</uri></script>
+          <uri>model://marker/materials/scripts/</uri><uri>model://marker/materials/textures/</uri></script>
         </material>
       </visual>
     </link>

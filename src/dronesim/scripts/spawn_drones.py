@@ -11,7 +11,6 @@ initial_pose.position.x = 0
 initial_pose.position.y = 0
 initial_pose.position.z = 5
 
-# f = open('/home/rajendra/droneai_ws/src/dronesim/scripts/drone.sdf','r')
 f = open(rospkg.RosPack().get_path('dronesim')+'/scripts/drone.sdf')
 sdff = f.read()
 
