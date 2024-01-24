@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+
+<robot name="stereo_camera" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- camera -->
+    <xacro:include filename="$(find dronesim)/urdf/stereo_camera.gazebo.xacro"/>
+
+    <xacro:property name="stereo_z" value="0.05" />
+    <xacro:property name="stereo_y" value="0.07" />
+    <xacro:property name="stereo_x" value="0.05" />
+    <xacro:property name="object_height" value="3.5" />
+
+    <!-- Used for fixing robot to Gazebo 'base_link' -->
+    
+    <link name="world"/>
+    <!-- <link name="dummy"/>
+    <joint name="world_joint" type="fixed">
+        <parent link="dummy"/>
+        <child link="world"/>
+        <origin xyz="0 1 0" rpy="0 0 -1.57" /> 
+    </joint> -->
+
+    <!-- Base Link -->
+    <link name="stereo_camera_link">
+        <collision>
+            <origin xyz="-${stereo_z/2} 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${stereo_x} ${stereo_y} ${stereo_z}"/>
+            </geometry>
+        </collision>
+
+        <visual>
+            <origin xyz="-${stereo_x/2} 0 0" rpy="0 0 0"/>
+            <geometry>
+                <box size="${stereo_x} ${stereo_y} ${stereo_z}"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="1"/>
+            <inertia
+                ixx="1.0" ixy="0.0" ixz="0.0"
+                iyy="1.0" iyz="0.0"
+                izz="1.0"/>
+        </inertial>
+    </link>
+
+    <joint name="sensor_joint" type="fixed">
+        <parent link="world"/>
+        <child link="stereo_camera_link"/>
+        <!-- <origin xyz="0.5 0.5 ${object_height}" rpy="0 1.57 0" />  -->
+        <origin xyz="0.5 0.5 ${object_height}" rpy="0 3.14 0" />
+        <!-- <origin xyz="1.5 1.5 ${object_height}" rpy="0 3.92699 0.785" />  -->
+        <!-- <origin xyz="-0.5 -0.5 ${object_height}" rpy="0 2.35619 0.785" /> -->
+        <!-- <origin xyz="0.0 0.0 ${object_height}" rpy="0 2.35619 0.785" />  -->
+        <!-- 0.75 0.035 0.5 -->
+    </joint>
+
+    <link name="stereo_camera2_link"/>
+    <joint name="stereo_camera2_joint" type="fixed">
+        <parent link="stereo_camera_link"/>
+        <child link="stereo_camera2_link"/>
+        <origin xyz="0 0 0" rpy="0 0 -1.57" />
+        <!-- <origin xyz="0 0 0" rpy="0 0 -1.57" />  -->
+    </joint>
+
+    <material name="orange">
+        <color rgba="${255/255} ${108/255} ${10/255} 1.0"/>
+    </material>
+
+    <gazebo reference="stereo_camera_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
+
+    <!-- <link name="drone__base_link">
+        <inertial>
+            <mass value="0.39563"/>
+            <origin xyz="-0.00021 -0.00973  0.0409" rpy="0   0   1.57"/>
+            <inertia ixx="0.00084919" ixy="-4.3943e-06" ixz="2.0367e-10" iyy="0.00069336" iyz="-3.0121e-06" izz="0.0014819"/>
+        </inertial>
+        <collision name="drone__base_link_collision">
+            <origin xyz="0 0 0" rpy="0   0   1.57"/>
+            <geometry>
+                <mesh filename="package://flocking/models/drone/meshes/base_link.stl" scale="0.2 0.2 0.2"/>
+            </geometry>
+        </collision>
+        <visual name="drone__base_link_visual">
+            <origin xyz="0 0 0" rpy="0   0   1.57"/>
+            <geometry>
+                <mesh filename="package://flocking/models/drone/meshes/base_link.stl" scale="0.2 0.2 0.2"/>
+            </geometry>
+        </visual>
+    </link>
+    <joint name="drone__base_joint" type="fixed">
+        <parent link="world"/>
+        <child link="drone__base_link"/>
+        <origin xyz="0.5 0.5 0.1" rpy="0 0 0" /> 
+    </joint> -->
+</robot>

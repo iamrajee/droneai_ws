@@ -1,0 +1,23 @@
+<sdf version="1.5">
+  <model name="marker_1">
+    <static>false</static>
+    <link name="link">
+      <pose>0.0 0.0 0.0005 0.0 0.0 0.0</pose>
+      <collision name="collision">
+        <geometry>
+          <!-- Box or plane geometry is used -->
+        <box><size>1.0 1.0 0.001</size></box></geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <!-- Box or plane geometry is used -->
+        <box><size>1.0 1.0 0.001</size></box></geometry>
+        <material>
+          <script>
+            <name>marker_id_1</name>
+          <uri>model://marker_1/materials/scripts/</uri><uri>model://marker_1/materials/textures/</uri></script>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
